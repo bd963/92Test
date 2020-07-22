@@ -1,0 +1,86 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bd.dao.AdminDao">
+<!-- 学生 -->
+	<!--学生数据分页 -->
+	<select id="liststudent" resultType="Student">
+		select  *  from  student 
+		<if test="start!=null and limit!=null">
+			limit #{start},#{limit}
+		</if>
+	</select>
+	<!--插入一个学生信息 -->
+	<insert id="addStudent" parameterType="Student">
+		insert into student(username,password,stuclass,stuname,stuno,score)values (#{username},#{password},#{stuclass},#{stuname},#{stuno},#{score})
+	</insert>
+	<!-- 获得全部学生信息 -->
+	<select id="stumanage" resultType="Student">
+		select * from student
+	</select>
+	<!-- 获得一个学生信息 -->
+	<select id="selectone" parameterType="java.lang.String" resultType="Student">
+		select * from student where id= #{id}
+	</select>
+	<!-- 删除学生信息 -->
+	<delete id="delstudnet" parameterType="String">
+		delete from student where id= #{id}
+	</delete>
+	<!-- 更新学生信息 -->
+	<update id="updatestu" parameterType="Student">
+		update student set username=#{username},
+		password= #{password},
+		stuclass= #{stuclass},
+		stuname= #{stuname},
+		stuno= #{stuno}
+		where id= #{id}
+	</update>
+	<!--学生名字模糊查询 -->
+	<select id="selectbyname" parameterType="String" resultType="Student">
+		select  *  from  student  where stuname like concat('%',#{stuname},'%')
+	</select>
+<!-- 老师 -->	
+	<!--插入一个老师信息 -->
+	<insert id="addteacher" parameterType="Teacher">
+		insert into teacher(username,password,teaname)values (#{username},#{password},#{teaname})
+	</insert>
+	<!--删除一个老师信息 -->
+	<delete id="delteacher" parameterType="String">
+		delete from teacher where id= #{id}
+	</delete>
+	<!-- 修改一个老师信息 -->
+	<update id="updatetea" parameterType="Teacher">
+		update teacher set username=#{username},
+		password= #{password},		
+		teaname= #{teaname}
+		where id= #{id}
+	</update>
+	<!-- 查询一个老师信息 -->
+	<select id="selectonetea" parameterType="String" resultType="Teacher">
+		select * from teacher where id= #{id}
+	</select>
+	<!-- 查询所有老师信息 -->
+	<select id="teamanage" resultType="Teacher">
+		select * from teacher
+	</select>
+	<!-- 模糊查询老师信息 -->
+	<select id="selectbynametea" parameterType="String" resultType="Teacher">
+		select  *  from  teacher  where teaname like concat('%',#{teaname},'%')
+	</select>
+	<!-- 管理员 -->
+	<!-- 添加一个管理员 -->
+	<insert id="addAdmin" parameterType="Admin">
+		INSERT INTO `admin` (`name`,`userName`,`password`) VALUES(#{name},#{username},#{password});
+	</insert>
+	<!-- 查询所有管理员信息 -->
+	<select id="adminree" resultType="Admin">
+		SELECT `id`,`name`,`username`,`password` FROM `admin`
+	</select>
+	<!-- 查询一个管理员信息 -->
+	<select id="selectoneade" parameterType="String" resultType="Admin">
+		SELECT * FROM Admin WHERE id=#{id}
+	</select>
+	<!-- 模糊查询管理信息 -->
+	<select id="selectbynameade" parameterType="String" resultType="Admin">
+		SELECT * FROM Admin WHERE NAME LIKE CONCAT('%',#{name},'%');
+	</select>
+</mapper>

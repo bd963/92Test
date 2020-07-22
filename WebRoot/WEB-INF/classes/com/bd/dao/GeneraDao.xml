@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bd.dao.GeneraDao">
+	<!-- 根据id修改老师密码 -->
+	<update id="updatepw" parameterType="Teacher">
+		update teacher set password = ${password}
+		where id= ${id}
+	</update>
+	<!-- 根据id修改学生分数 -->
+	<update id="updatescore" parameterType="Student">
+		update student set score = #{score}
+		where id= #{id}
+	</update>
+	<!-- 根据id修改学生密码 -->
+	<update id="updatepws" parameterType="Student">
+		update student set password = ${password}
+		where id= ${id}
+	</update>
+</mapper>
